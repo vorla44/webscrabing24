@@ -3,6 +3,7 @@
 import requests  #lukee sivun tekstinä
 import selectorlib  # valitsee sivulta
 import send_email
+import time
 
 URL = "https://programmer100.pythonanywhere.com/tours/"
 HEADERS = {
@@ -21,9 +22,6 @@ def extract(source):
     value = extractor.extract(source)["tours"] # key extract.yaml:ssä, voi olla mikä vaan
     return value
 
-def send_email():
-    print("Email was sent! ") #testiä varten
-
 def store(extracter):
     with open("data.txt", "a") as file:  #a lisää w kirjoittaa päälle
         file.write(extracted + "\n")
@@ -33,13 +31,14 @@ def read(extracted):
         return file.read()
 
 if __name__ == "__main__":
-    #print(scrape(URL)) voi kokeilla ennen alla olevaa
-    scraped = scrape(URL)
-    extracted = extract(scraped)
-    print(extracted)
-    content = read(extracted)
-    if extracted != "No upcoming tours":
-        if extracted not in "data.txt":
-            store(extracted)
-            send_email(message = "Hey, new event was found!")
-
+    while True:
+        #print(scrape(URL)) voi kokeilla ennen alla olevaa
+        scraped = scrape(URL)
+        extracted = extract(scraped)
+        print(extracted)
+        content = read(extracted)
+        if extracted != "No upcoming tours":
+            if extracted not in content:
+                store(extracted)
+                send_email.send_email(message="Hey, new event was found!")
+    time.sleep(2) #tsekkaa 2 sek välein

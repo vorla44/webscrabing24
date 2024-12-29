@@ -5,4 +5,6 @@ Tutkitaan erilaisia toteutusmalleja
 https://programmer100.pythonanywhere.com/tours/
 data luettu 
 data tallennettu tekstitiedostoon
-sen-email lisätty - virheilmoitus
+send-email lisätty - virheilmoitus
+tehty while-silmukka, korjattu virhe 3 kohtaa
+
