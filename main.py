@@ -2,6 +2,7 @@
 
 import requests  #lukee sivun tekstinä
 import selectorlib  # valitsee sivulta
+import send_email
 
 URL = "https://programmer100.pythonanywhere.com/tours/"
 HEADERS = {
@@ -40,5 +41,5 @@ if __name__ == "__main__":
     if extracted != "No upcoming tours":
         if extracted not in "data.txt":
             store(extracted)
-            send_email()
+            send_email(message = "Hey, new event was found!")
 
